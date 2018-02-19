@@ -1,9 +1,32 @@
 # aws-lambda-scheduled-function
-Terraform module for AWS Lambda scheduled functions
+Terraform module which created AWS Lambda scheduled functions
 
+These types of resources are created:
+- aws_cloudwatch_event_rule
+- aws_cloudwatch_event_target
+- aws_lambda_function
+- aws_lambda_permission
+
+Lambda function role is not created by default, it has to be pass as parameter to the module
+
+Usage
+-------
 ````
-module "lambda_notify_instance_missing_tags_ireland" {
-  source           = "../modules/aws-lambda-scheduled-function"
+variable "regions" {
+  type = "map"
+  default =  {
+    ireland = "eu-west-1"
+    frankfurt = "eu-central-1"
+  }
+}
+
+provider "aws" {
+  region = "${lookup(var.regions, "ireland")}"
+}
+
+
+module "my_scheduled_lambda_function_region_ireland" {
+  source           = "birkoff/lambda-scheduled-function/aws"
   runtime          = "${var.runtime}"
   region           = "${lookup(var.regions, "ireland")}"
   function_name    = "${var.function_name}"
@@ -13,20 +36,23 @@ module "lambda_notify_instance_missing_tags_ireland" {
   description      = "${var.description}"
   handler          = "${var.handler}"
   event_schedule   = "${var.event_schedule}"
-  lambda_role_arn  = "${aws_iam_role.notify-instance-missing-tags-role.arn}"
-  env_vars         = "${var.env_vars}"
-
+  lambda_role_arn  = "${aws_iam_role.my-scheduled-lambda-function-role.arn}"
+  
+  env_vars = {
+    URL = "${var.url}"
+  }
+  
   tags = {
-    Owner     = "hector"
-    Product   = "ireland"
+    Owner     = "myusername"
+    Region    = "ireland"
     Terraform = "true"
   }
 }
 ````
 
 ````
-module "lambda_notify_instance_missing_tags_frankfurt" {
-  source           = "../modules/aws-lambda-scheduled-function"
+module "my_scheduled_lambda_function_region_frankfurt" {
+  source           = "birkoff/lambda-scheduled-function/aws"
   runtime          = "${var.runtime}"
   region           = "${lookup(var.regions, "frankfurt")}"
   function_name    = "${var.function_name}"
@@ -36,13 +62,21 @@ module "lambda_notify_instance_missing_tags_frankfurt" {
   description      = "${var.description}"
   handler          = "${var.handler}"
   event_schedule   = "${var.event_schedule}"
-  lambda_role_arn  = "${aws_iam_role.notify-instance-missing-tags-role.arn}"
-  env_vars         = "${var.env_vars}"
+  lambda_role_arn  = "${aws_iam_role.my-scheduled-lambda-function-role.arn}"
+  
+  env_vars = {
+    URL = "${var.url}"
+  }
 
   tags = {
-    Owner     = "hector"
-    Product   = "frankfurt"
+    Owner     = "myusername"
+    region    = "frankfurt"
     Terraform = "true"
   }
 }
 ````
+
+License
+-------
+
+MIT
