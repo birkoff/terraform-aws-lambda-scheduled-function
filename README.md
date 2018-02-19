@@ -48,9 +48,7 @@ module "my_scheduled_lambda_function_region_ireland" {
     Terraform = "true"
   }
 }
-````
 
-````
 module "my_scheduled_lambda_function_region_frankfurt" {
   source           = "birkoff/lambda-scheduled-function/aws"
   runtime          = "${var.runtime}"
