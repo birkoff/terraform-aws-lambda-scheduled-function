@@ -57,3 +57,15 @@ variable "env_vars" {
   type = "map"
   description = "Environment variables to apply to the lambda function"
 }
+
+variable "vpc_subnet_ids" {
+  type = "list"
+  default = []
+  description = "A list of subnet IDs associated with the Lambda function"
+}
+
+variable "vpc_security_group_ids" {
+  type = "list"
+  default = []
+  description = "A list of security group IDs associated with the Lambda function"
+}

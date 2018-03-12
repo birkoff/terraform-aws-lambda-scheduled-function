@@ -7,6 +7,10 @@ resource "aws_lambda_function" "lambda-scheduled-function" {
   handler       = "${var.handler}"
   runtime       = "${var.runtime}"
   timeout       = "${var.timeout}"
+  vpc_config    = {
+    subnet_ids         = ["${var.vpc_subnet_ids}"]
+    security_group_ids = ["${var.vpc_security_group_ids}"]
+  }
 
   environment {
     variables = "${var.env_vars}"
