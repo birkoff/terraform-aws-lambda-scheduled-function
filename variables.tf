@@ -1,71 +1,71 @@
 variable "region" {
-  type = "string"
+  type        = "string"
   description = "AWS Region to deplpy the function"
 }
 
 variable "timeout" {
-  type = "string"
+  type        = "string"
   description = "Execution timeout"
 }
 
 variable "s3_lambda_bucket" {
-  type = "string"
+  type        = "string"
   description = "S3 Bucket where the code is stored"
 }
 
 variable "s3_function_key" {
-  type = "string"
+  type        = "string"
   description = "S3 key where the code is stored"
 }
 
 variable "function_name" {
-  type = "string"
+  type        = "string"
   description = "Lambda Function Name"
 }
 
 variable "description" {
-  type = "string"
+  type        = "string"
   description = "Lambda Function Description"
 }
 
 variable "handler" {
-  type = "string"
+  type        = "string"
   description = "Lambda Halndler"
 }
 
 variable "runtime" {
-  type = "string"
+  type        = "string"
   description = "Runtime Engine"
 }
 
 variable "event_schedule" {
-  type = "string"
+  type        = "string"
   description = "Cron - Schedule"
 }
 
 variable "lambda_role_arn" {
-  type = "string"
+  type        = "string"
   description = "Role Permission to execute lambda"
 }
 
 variable "tags" {
-  type = "map"
+  type        = "map"
   description = "Tags to apply to lambda function"
 }
 
 variable "env_vars" {
-  type = "map"
+  type        = "map"
   description = "Environment variables to apply to the lambda function"
 }
 
 variable "vpc_subnet_ids" {
-  type = "list"
-  default = []
+  type        = "list"
+  default     = []
   description = "A list of subnet IDs associated with the Lambda function"
 }
 
 variable "vpc_security_group_ids" {
-  type = "list"
-  default = []
+  type        = "list"
+  default     = []
   description = "A list of security group IDs associated with the Lambda function"
 }
