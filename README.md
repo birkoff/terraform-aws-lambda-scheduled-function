@@ -50,17 +50,19 @@ module "my_scheduled_lambda_function_region_ireland" {
 }
 
 module "my_scheduled_lambda_function_region_frankfurt" {
-  source           = "birkoff/lambda-scheduled-function/aws"
-  runtime          = "${var.runtime}"
-  region           = "${lookup(var.regions, "frankfurt")}"
-  function_name    = "${var.function_name}"
-  timeout          = "${var.timeout}"
-  s3_lambda_bucket = "${lookup(var.s3_lambda_bucket, "frankfurt")}"
-  s3_function_key  = "${var.s3_function_key}"
-  description      = "${var.description}"
-  handler          = "${var.handler}"
-  event_schedule   = "${var.event_schedule}"
-  lambda_role_arn  = "${aws_iam_role.my-scheduled-lambda-function-role.arn}"
+  source                 = "birkoff/lambda-scheduled-function/aws"
+  runtime                = "${var.runtime}"
+  region                 = "${lookup(var.regions, "frankfurt")}"
+  function_name          = "${var.function_name}"
+  timeout                = "${var.timeout}"
+  s3_lambda_bucket       = "${lookup(var.s3_lambda_bucket, "frankfurt")}"
+  s3_function_key        = "${var.s3_function_key}"
+  description            = "${var.description}"
+  handler                = "${var.handler}"
+  event_schedule         = "${var.event_schedule}"
+  lambda_role_arn        = "${aws_iam_role.my-scheduled-lambda-function-role.arn}"
+  vpc_subnet_ids         = ["${var.subnet_ids}"]
+  vpc_security_group_ids = ["${var.security_group_ids}"]
   
   env_vars = {
     URL = "${var.url}"
